@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>{TargetFramework}</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Template</RootNamespace>
+    <AssemblyName>Template</AssemblyName>
+    <PackageId>Template</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Wei Li</Authors>
+    <Product>Template</Product>
+    <Description>A template project that uses minimal API structure.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+</Project>
