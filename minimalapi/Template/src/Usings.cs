@@ -1,3 +1,3 @@
-using Microsoft.OpenApi.Models;
-using System.Reflection;
-using System.Text.Json.Serialization;
+global using Microsoft.OpenApi.Models;
+global using System.Reflection;
+global using System.Text.Json.Serialization;
