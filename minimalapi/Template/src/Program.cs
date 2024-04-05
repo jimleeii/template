@@ -10,6 +10,6 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 var app = builder.Build();
 app.UseEndpointDefinitions();
 
-app.MapGet("/", () => "Hello World!");
+app.MapGet("/", () => "Hello Template!");
 
 app.Run();
