@@ -1,4 +1,4 @@
-﻿using Template.Services;
+﻿using EndpointDefinition;
 
 namespace Template.EndpointDefinitions;
 
@@ -11,7 +11,8 @@ public class WeatherForecastEndpointDefinition : IEndpointDefinition
     /// Defines the endpoints.
     /// </summary>
     /// <param name="app">The app.</param>
-    public void DefineEndpoints(WebApplication app)
+    /// <param name="env">The environment.</param>
+    public void DefineEndpoints(WebApplication app, IWebHostEnvironment env)
     {
         app.MapGet("api/WeatherForecast", WeatherForecastAsync);
     }
@@ -28,10 +29,10 @@ public class WeatherForecastEndpointDefinition : IEndpointDefinition
     /// <summary>
     /// Weathers the forecast asynchronously.
     /// </summary>
+    /// <param name="service">The weather forecast service.</param>
     /// <returns>A Task of type IResult</returns>
-    private async Task<IResult> WeatherForecastAsync()
+    private async Task<IResult> WeatherForecastAsync(IWeatherForecastService service)
     {
-        var service = new WeatherForecastService();
         var forecasts = await service.GetWeatherForecastAsync();
         return Results.Ok(forecasts);
     }
