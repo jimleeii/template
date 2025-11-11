@@ -1,4 +1,8 @@
-﻿namespace Template.EndpointDefinitions;
+﻿using EndpointDefinition;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
+
+namespace Template.EndpointDefinitions;
 
 /// <summary>
 /// The swagger endpoint definition.
@@ -12,8 +16,14 @@ public class SwaggerEndpointDefinition : IEndpointDefinition
     /// Defines the endpoints.
     /// </summary>
     /// <param name="app">The app.</param>
-    public void DefineEndpoints(WebApplication app)
+    /// <param name="env">The environment.</param>
+    public void DefineEndpoints(WebApplication app, IWebHostEnvironment env)
     {
+        if (!env.IsDevelopment())
+        {
+            return;
+        }
+
         app.UseSwagger();
         app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", $"{Title} {Version}"));
     }

@@ -1,4 +1,4 @@
-﻿using Template.Services;
+﻿using EndpointDefinition;
 
 namespace Template.EndpointDefinitions;
 
@@ -11,7 +11,8 @@ public class WeatherForecastEndpointDefinition : IEndpointDefinition
     /// Defines the endpoints.
     /// </summary>
     /// <param name="app">The app.</param>
-    public void DefineEndpoints(WebApplication app)
+    /// <param name="env">The environment.</param>
+    public void DefineEndpoints(WebApplication app, IWebHostEnvironment env)
     {
         app.MapGet("api/WeatherForecast", WeatherForecastAsync);
     }
