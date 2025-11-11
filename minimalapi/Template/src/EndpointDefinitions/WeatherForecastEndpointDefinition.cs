@@ -29,10 +29,10 @@ public class WeatherForecastEndpointDefinition : IEndpointDefinition
     /// <summary>
     /// Weathers the forecast asynchronously.
     /// </summary>
+    /// <param name="service">The weather forecast service.</param>
     /// <returns>A Task of type IResult</returns>
-    private async Task<IResult> WeatherForecastAsync()
+    private async Task<IResult> WeatherForecastAsync(IWeatherForecastService service)
     {
-        var service = new WeatherForecastService();
         var forecasts = await service.GetWeatherForecastAsync();
         return Results.Ok(forecasts);
     }
