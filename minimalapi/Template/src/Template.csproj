@@ -6,7 +6,7 @@
     <RootNamespace>Template</RootNamespace>
     <AssemblyName>Template</AssemblyName>
     <PackageId>Template</PackageId>
-    <Version>1.0.0</Version>
+    <Version>2.0.0</Version>
     <Authors>Wei Li</Authors>
     <Product>Template</Product>
     <Description>A template project that uses minimal API structure.</Description>
