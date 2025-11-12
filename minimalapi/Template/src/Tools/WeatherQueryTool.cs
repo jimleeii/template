@@ -4,10 +4,10 @@ using System.ComponentModel;
 namespace Template.Tools;
 
 /// <summary>
-/// The stock query tool.
+/// The weather query tool.
 /// </summary>
 [McpServerToolType]
-public static class StockQueryTool
+public static class WeatherQueryTool
 {
     /// <summary>
     /// Queries weather forecast data asynchronously and returns the results back to the client.
