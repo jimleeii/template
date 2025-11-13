@@ -25,7 +25,7 @@ public class SwaggerEndpointDefinition : IEndpointDefinition
         }
 
         app.UseSwagger();
-        app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", $"{Title} {Version}"));
+        app.UseSwaggerUI(c => c.SwaggerEndpoint("/openapi/v1.json", $"{Title} {Version}"));
     }
 
     /// <summary>

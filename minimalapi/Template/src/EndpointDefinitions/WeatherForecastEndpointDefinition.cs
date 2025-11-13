@@ -30,10 +30,18 @@ public class WeatherForecastEndpointDefinition : IEndpointDefinition
     /// Weathers the forecast asynchronously.
     /// </summary>
     /// <param name="service">The weather forecast service.</param>
+    /// <param name="id">The JSON-RPC request ID (optional).</param>
     /// <returns>A Task of type IResult</returns>
-    private async Task<IResult> WeatherForecastAsync(IWeatherForecastService service)
+    private async Task<IResult> WeatherForecastAsync(IWeatherForecastService service, string? id = null)
     {
         var forecasts = await service.GetWeatherForecastAsync();
-        return Results.Ok(forecasts);
+        
+        var response = new JsonRpcResponse<IEnumerable<WeatherForecast>>
+        {
+            Result = forecasts,
+            Id = id ?? Guid.NewGuid().ToString()
+        };
+        
+        return Results.Ok(response);
     }
 }

@@ -12,6 +12,7 @@ A modern ASP.NET Core Minimal API template featuring the Endpoint Definition pat
 - **📚 OpenAPI/Swagger Documentation** - Automatic API documentation in development mode
 - **🔧 Dependency Injection** - Built-in DI container for services
 - **⚡ Output Caching** - Performance optimization with configurable caching
+- **🔄 JSON-RPC 2.0 Support** - Standardized JSON-RPC response format for API endpoints
 
 ## Prerequisites
 
@@ -77,7 +78,10 @@ Template/
 │   ├── Extensions/                # Extension methods
 │   │   └── StringExtensions.cs
 │   ├── Models/                    # Data models
-│   │   └── WeatherForecast.cs
+│   │   ├── WeatherForecast.cs
+│   │   ├── JsonRpcResponse.cs
+│   │   ├── JsonRpcError.cs
+│   │   └── JsonRpcErrorCodes.cs
 │   ├── Services/                  # Business logic services
 │   │   ├── IWeatherForecastService.cs
 │   │   └── WeatherForecastService.cs
@@ -116,6 +120,39 @@ public class WeatherForecastEndpointDefinition : IEndpointDefinition
 }
 ```
 
+### JSON-RPC 2.0 Response Format
+
+API endpoints return responses in JSON-RPC 2.0 format, providing a standardized structure for success and error handling:
+
+**Success Response:**
+```json
+{
+  "jsonrpc": "2.0",
+  "result": { /* your data */ },
+  "id": "request-id"
+}
+```
+
+**Error Response:**
+```json
+{
+  "jsonrpc": "2.0",
+  "error": {
+    "code": -32603,
+    "message": "Internal error",
+    "data": { /* additional error details */ }
+  },
+  "id": "request-id"
+}
+```
+
+**Standard Error Codes:**
+- `-32700` - Parse error
+- `-32600` - Invalid request
+- `-32601` - Method not found
+- `-32602` - Invalid method parameters
+- `-32603` - Internal error
+
 ### Model Context Protocol (MCP)
 
 The template includes MCP server capabilities, allowing AI assistants to interact with your API as tools. MCP endpoints are available at:
@@ -139,20 +176,26 @@ Parameters:
 
 ### Weather Forecast
 
-**GET** `/api/WeatherForecast`
+**GET** `/api/WeatherForecast?id={requestId}`
 
-Returns a 5-day weather forecast with temperature and conditions.
+Returns a 5-day weather forecast with temperature and conditions in JSON-RPC 2.0 format.
+
+**Query Parameters:**
+- `id` (optional) - JSON-RPC request ID. If not provided, a GUID will be generated.
 
 **Response:**
 ```json
-[
-  {
-    "date": "2025-11-11",
-    "temperatureC": 25,
-    "temperatureF": 77,
-    "summary": "Warm"
-  }
-]
+{
+  "jsonrpc": "2.0",
+  "result": [
+    {
+      "date": "2025-11-11",
+      "temperatureC": 25,
+      "temperatureF": 77,
+      "summary": "Warm"
+    }
+  ],
+  "id": "request-id-here"
 ```
 
 ### Root
