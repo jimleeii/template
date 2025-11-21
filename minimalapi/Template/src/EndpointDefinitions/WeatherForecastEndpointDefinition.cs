@@ -35,13 +35,13 @@ public class WeatherForecastEndpointDefinition : IEndpointDefinition
     private async Task<IResult> WeatherForecastAsync(IWeatherForecastService service, string? id = null)
     {
         var forecasts = await service.GetWeatherForecastAsync();
-        
+
         var response = new JsonRpcResponse<IEnumerable<WeatherForecast>>
         {
             Result = forecasts,
             Id = id ?? Guid.NewGuid().ToString()
         };
-        
+
         return Results.Ok(response);
     }
 }

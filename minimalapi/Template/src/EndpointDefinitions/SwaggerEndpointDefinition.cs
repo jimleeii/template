@@ -1,5 +1,5 @@
 ﻿using EndpointDefinition;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using System.Reflection;
 
 namespace Template.EndpointDefinitions;
