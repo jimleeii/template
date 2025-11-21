@@ -6,17 +6,19 @@ A modern ASP.NET Core Minimal API template featuring the Endpoint Definition pat
 
 ## Features
 
-- **✨ Minimal API Architecture** - Clean, lightweight API structure using ASP.NET Core 9.0
+- **✨ Minimal API Architecture** - Clean, lightweight API structure using ASP.NET Core 10.0
 - **📦 Endpoint Definition Pattern** - Modular endpoint organization for better code maintainability
 - **🤖 Model Context Protocol (MCP) Integration** - Built-in MCP server for AI tool interactions
 - **📚 OpenAPI/Swagger Documentation** - Automatic API documentation in development mode
 - **🔧 Dependency Injection** - Built-in DI container for services
 - **⚡ Output Caching** - Performance optimization with configurable caching
 - **🔄 JSON-RPC 2.0 Support** - Standardized JSON-RPC response format for API endpoints
+- **🔐 Microsoft Entra ID Authentication** - Built-in JWT authentication with role-based authorization
+- **🔌 WebSocket Support** - Real-time bidirectional communication capabilities
 
 ## Prerequisites
 
-- [.NET 9.0 SDK](https://dotnet.microsoft.com/download/dotnet/9.0) or later
+- [.NET 10.0 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) or later
 - Visual Studio 2022 or Visual Studio Code
 
 ## Getting Started
@@ -73,8 +75,10 @@ Template/
 │   ├── EndpointDefinitions/       # Modular endpoint definitions
 │   │   ├── McpEndpointDefinition.cs
 │   │   ├── OpenApiEndpointDefinition.cs
+│   │   ├── SecureEndpointDefinition.cs
 │   │   ├── SwaggerEndpointDefinition.cs
-│   │   └── WeatherForecastEndpointDefinition.cs
+│   │   ├── WeatherForecastEndpointDefinition.cs
+│   │   └── WebSocketEndpointDefinition.cs
 │   ├── Extensions/                # Extension methods
 │   │   └── StringExtensions.cs
 │   ├── Models/                    # Data models
@@ -92,6 +96,7 @@ Template/
 │   ├── Program.cs                 # Application entry point
 │   ├── GlobalUsings.cs            # Global using directives
 │   └── Template.csproj
+├── ENTRA_SETUP.md                 # Microsoft Entra ID setup guide
 └── Template.sln
 ```
 
@@ -209,6 +214,50 @@ Returns a simple greeting message.
 Hello Template!
 ```
 
+### Secure Endpoints
+
+**GET** `/api/secure`
+
+Returns secure data. Requires authentication.
+
+**Response:**
+```json
+{
+  "message": "This is a secured endpoint",
+  "timestamp": "2025-11-21T12:00:00Z"
+}
+```
+
+**GET** `/api/admin`
+
+Returns admin data. Requires authentication with Admin role.
+
+**Response:**
+```json
+{
+  "message": "This is an admin-only endpoint",
+  "timestamp": "2025-11-21T12:00:00Z"
+}
+```
+
+### WebSocket
+
+**WS** `/ws`
+
+WebSocket endpoint for real-time weather updates. Sends weather forecast data at regular intervals.
+
+**Connection:** `ws://localhost:5243/ws` or `wss://localhost:7145/ws`
+
+**Messages Received:**
+```json
+{
+  "date": "2025-11-21",
+  "temperatureC": 25,
+  "temperatureF": 77,
+  "summary": "Warm"
+}
+```
+
 ## Configuration
 
 ### appsettings.json
@@ -221,9 +270,20 @@ Hello Template!
       "Microsoft.AspNetCore": "Warning"
     }
   },
-  "AllowedHosts": "*"
+  "AllowedHosts": "*",
+  "AzureAd": {
+    "Instance": "https://login.microsoftonline.com/",
+    "Domain": "your-domain.onmicrosoft.com",
+    "TenantId": "your-tenant-id",
+    "ClientId": "your-client-id",
+    "Audience": "your-audience"
+  }
 }
 ```
+
+### Microsoft Entra ID Setup
+
+For detailed instructions on setting up Microsoft Entra ID authentication, see [ENTRA_SETUP.md](ENTRA_SETUP.md).
 
 ### Launch Profiles
 
@@ -235,9 +295,10 @@ The project includes three launch profiles:
 ## Dependencies
 
 - **[EndpointDefinition](https://www.nuget.org/packages/EndpointDefinition/)** (1.0.3) - Modular endpoint organization
-- **[Microsoft.AspNetCore.OpenApi](https://www.nuget.org/packages/Microsoft.AspNetCore.OpenApi/)** (9.0.10) - OpenAPI support
+- **[Microsoft.AspNetCore.OpenApi](https://www.nuget.org/packages/Microsoft.AspNetCore.OpenApi/)** (10.0.0) - OpenAPI support
+- **[Microsoft.Identity.Web](https://www.nuget.org/packages/Microsoft.Identity.Web/)** (4.1.0) - Microsoft Entra ID authentication
 - **[ModelContextProtocol.AspNetCore](https://www.nuget.org/packages/ModelContextProtocol.AspNetCore/)** (0.4.0-preview.3) - MCP integration
-- **[Swashbuckle.AspNetCore](https://www.nuget.org/packages/Swashbuckle.AspNetCore/)** (6.5.0) - Swagger UI
+- **[Swashbuckle.AspNetCore](https://www.nuget.org/packages/Swashbuckle.AspNetCore/)** (10.0.1) - Swagger UI
 
 ## Development
 
