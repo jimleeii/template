@@ -12,7 +12,7 @@
     <Description>A template project that uses minimal API structure.</Description>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="EndpointDefinition" Version="1.0.3" />
+    <PackageReference Include="EndpointDefinition" Version="1.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.0" />
     <PackageReference Include="Microsoft.Identity.Web" Version="4.1.0" />
     <PackageReference Include="ModelContextProtocol.AspNetCore" Version="0.4.0-preview.3" />

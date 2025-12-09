@@ -10,6 +10,7 @@ builder.Services.AddAuthentication(Microsoft.AspNetCore.Authentication.JwtBearer
     .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
 
 builder.Services.AddAuthorization();
+builder.Services.AddHealthChecks();
 
 builder.Services.AddEndpointDefinitions(typeof(Program));
 builder.Services.ConfigureHttpJsonOptions(static options => options.SerializerOptions.NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals);
@@ -21,6 +22,7 @@ app.UseAuthorization();
 
 app.UseEndpointDefinitions(builder.Environment);
 
+app.MapHealthChecks("/health");
 app.MapGet("/", () => "Hello Template!");
 
 await app.RunAsync();
